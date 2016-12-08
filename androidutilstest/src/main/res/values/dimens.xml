@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- 项目常规字号大小 size_F1一般是标题使用（各个列表页的标题）-->
+    <dimen name="size_F1">13dp</dimen>
+    <!--内容字号：搜索结果的帖子内容-->
+    <dimen name="size_F2">14dp</dimen>
+    <!--不重要的展示信息字号：时间、评论数、点赞数等-->
+    <dimen name="size_F3">15dp</dimen>
+    <!-- 项目中很多地方特别指定了行间距，大家使用统一的值吧 -->
+    <dimen name="lineSpacingExtra_12px">5dp</dimen>
+
+    <dimen name="loading_frame_text_tip_margin">20dip</dimen>
+    <dimen name="loading_frame_text_tip_padding">5dip</dimen>
+    <dimen name="loading_tips_size">12dip</dimen>
+    <dimen name="tip_top_bottom">10dip</dimen>
+</resources>

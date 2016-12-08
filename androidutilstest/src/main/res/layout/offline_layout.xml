@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:gravity="center_vertical"
+    android:paddingBottom="50dp" >
+
+    <RelativeLayout
+        android:id="@+id/btn_offline_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:duplicateParentState="true" >
+
+        <ImageView
+            android:id="@+id/bg_offline_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_offline_refresh"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/bg_net_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_net_refresh"
+            android:duplicateParentState="true"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_offline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_offline_refresh"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dip"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/load_fail"
+        android:textColor="#5a5a5a"
+        android:textSize="@dimen/size_F2" />
+
+</RelativeLayout>

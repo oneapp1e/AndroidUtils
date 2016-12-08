@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AndroidUtils</string>
+
+    <string name="load_fail">网络不给力，请点击刷新重试</string>
+    <string name="no_content">暂无内容</string>
+    <string name="loading">加载中</string>
+</resources>
