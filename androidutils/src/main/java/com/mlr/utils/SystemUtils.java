@@ -1,8 +1,3 @@
-/*
- * File Name: SystemUtils.java 
- * History:
- * Created by Siyang.Miao on 2012-2-20
- */
 package com.mlr.utils;
 
 import android.annotation.TargetApi;
@@ -888,7 +883,7 @@ public class SystemUtils {
     }
 
     /**
-     * 是否为魅族4.4设备
+     * 是否为魅族 flyme 4.4设备
      * 魅族4.4及以上设备都会返回true
      *
      * @return
@@ -899,7 +894,7 @@ public class SystemUtils {
     }
 
     /**
-     * 是否是小米4.4及以上设备
+     * 是否是小米 miui 4.4及以上设备
      *
      * @return
      */
@@ -907,5 +902,16 @@ public class SystemUtils {
         return VersionUtils.hasKitKat()
                 && !StringUtils.isEmpty(SystemUtils.getSystemProperty("ro.miui.ui.version.code"));
     }
+
+    /**
+     * 是否是华为 emui 4.4及以上设备
+     *
+     * @return
+     */
+    public static boolean isEmui() {
+        return VersionUtils.hasKitKat()
+                && !StringUtils.isEmpty(SystemUtils.getSystemProperty("ro.build.version.emui"));
+    }
+
 
 }
