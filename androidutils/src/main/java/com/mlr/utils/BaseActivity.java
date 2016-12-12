@@ -7,11 +7,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.CallSuper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BaseActivity extends Activity {
@@ -27,16 +30,12 @@ public class BaseActivity extends Activity {
 
     protected BaseActivity mActivity;
 
+    private static List<BaseActivity> activityList = new LinkedList<BaseActivity>();
+
     // ==========================================================================
     // Constructors
     // ==========================================================================
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mActivity = this;
-        super.onCreate(savedInstanceState);
-        initInflater();
-    }
     // ==========================================================================
     // Getters
     // ==========================================================================
@@ -53,9 +52,6 @@ public class BaseActivity extends Activity {
 
     };
 
-    protected BaseActivity getActivity() {
-        return mActivity;
-    }
     // ==========================================================================
     // Setters
     // ==========================================================================
@@ -194,6 +190,8 @@ public class BaseActivity extends Activity {
 
     //**********************资源相关end*****************************
 
+    //**********************事件相关start*****************************
+
     /**
      * 检测一个Motion事件是否在指定View的区域内
      *
@@ -246,11 +244,79 @@ public class BaseActivity extends Activity {
 
         return relativeEvent;
     }
-
+    //**********************事件相关end*****************************
 
     public boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
+
+    //**********************生命周期相关start*****************************
+
+    protected BaseActivity getActivity() {
+        return mActivity;
+    }
+
+    public List<BaseActivity> getActivityList() {
+        return activityList;
+    }
+
+    /**
+     * 退出应用的时候调用
+     */
+    public void finishAll() {
+        for (Activity a : activityList) {
+            a.finish();
+        }
+        activityList.clear();
+    }
+
+    @CallSuper
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        mActivity = this;
+        super.onCreate(savedInstanceState);
+        activityList.add(this);
+        initInflater();
+    }
+
+    @CallSuper
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @CallSuper
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @CallSuper
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @CallSuper
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @CallSuper
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @CallSuper
+    @Override
+    protected void onDestroy() {
+        activityList.remove(this);
+        super.onDestroy();
+    }
+
+    //**********************生命周期相关end*****************************
     // ==========================================================================
     // Inner/Nested Classes
     // ==========================================================================
