@@ -27,7 +27,7 @@ public class LogUtils {
     // Fields
     //==========================================================================
     private static String sTag = "mlr";
-    private static boolean sDebuggable = false;
+    private static boolean sDebuggable = true;
     private static long sTimestamp = 0;
     private static Object sLogLock = new Object();
 

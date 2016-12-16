@@ -3,9 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical"
 >
-
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"/>
     <Button
         android:id="@+id/btn01"
         android:layout_width="match_parent"
@@ -15,9 +21,27 @@
 
     <Button
         android:id="@+id/btn02"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="loading test"
+        android:textColor="@color/colorAccent"/>
+
+
+    <Button
+        android:id="@+id/btn03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="Retrofit2 使用"
+        android:textColor="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/btn04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@color/colorPrimary"
+        android:text="闹钟"
         android:textColor="@color/colorAccent"/>
 </LinearLayout>

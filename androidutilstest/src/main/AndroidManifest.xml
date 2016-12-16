@@ -19,6 +19,7 @@
     <application
         android:name="com.mlr.test.MyApplication"
         android:allowBackup="true"
+        android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -33,7 +34,12 @@
 
         <activity android:name="com.mlr.test.LoadingActivity"/>
         <activity android:name="com.mlr.test.X5WebViewActivity"/>
-
+        <activity android:name="com.mlr.test.Retrofit2Activity"/>
+        <activity android:name="com.mlr.test.AlarmActivity"/>
+        <receiver
+            android:name="com.mlr.test.utils.AlarmClockBroadcast"
+            >
+        </receiver>
     </application>
 
 </manifest>
