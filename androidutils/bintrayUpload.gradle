@@ -1,0 +1,104 @@
+//添加申请生成插件
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+//project
+def siteUrl = 'https://github.com/oneapp1e/AndroidUtils' //项目官方网站的地址，没有的话就用Github上的地址
+def gitUrl = 'https://github.com/oneapp1e/AndroidUtils.git'   //Git仓库的地址
+def projectName = 'AndroidUtils'//添加项目名称
+def projectUserOrg = 'mulinrui01' //这个是你创建时的organization,必须要有，不然没办法找到指定路径
+def projectRepo = 'maven' //这个仓库必须在 ‘maven’这个organization下，必须在网页上创建成功，否则还是无法找到 repo
+
+//developer
+def developerId ='mlr'//通常是你在开源社区的昵称
+def developerName='MuLinRui'//你的姓名
+def developerEmail='mulinrui@163.com'//你的邮箱
+
+
+ group = "com.mlr"//发布aar前缀根节点
+ version = "1.0.5"//发布aar的库版本
+
+
+
+
+//最后生成是compile 'com.soubw:jcontactlib:0.0.1' 就是group + ：+module名字 + ：+version
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name projectName //添加项目名称
+                url siteUrl //项目在github主页地址
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id developerId //通常是你在开源社区的昵称
+                        name developerName //设置自己名字
+                        email developerEmail //设置自己邮箱
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// javadoc configuration
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        userOrg = projectUserOrg //这个是你创建时的organization,必须要有，不然没办法找到指定路径
+        repo = projectRepo //这个仓库必须在 ‘maven’这个organization下，必须在网页上创建成功，否则还是无法找到 repo
+        name = projectName //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+
+

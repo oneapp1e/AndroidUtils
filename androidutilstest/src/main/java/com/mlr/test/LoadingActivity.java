@@ -6,31 +6,16 @@ import android.widget.Toast;
 
 import com.mlr.utils.BaseActivity;
 import com.mlr.utils.ToastUtils;
-import com.mlr.widget.LoadingAndRetryManager;
-import com.mlr.widget.OnLoadingAndRetryListener;
 
 
 public class LoadingActivity extends BaseActivity {
 
-    LoadingAndRetryManager mLoadingAndRetryManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-
-
-        mLoadingAndRetryManager = LoadingAndRetryManager.generate(this, new OnLoadingAndRetryListener() {
-            @Override
-            public void setRetryEvent(View retryView) {
-                setRetryAndEmpty(retryView);
-            }
-
-            @Override
-            public void setEmptyEvent(View emptyView) {
-                setRetryAndEmpty(emptyView);
-            }
-        });
+        initLoadingAndRetryManager();
 
         loadData();
 
@@ -61,6 +46,20 @@ public class LoadingActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void setRetryEvent(View retryView) {
+        setRetryAndEmpty(retryView);
+    }
+
+    @Override
+    public void setEmptyEvent(View emptyView) {
+        setRetryAndEmpty(emptyView);
+    }
+
+    @Override
+    public void setLoadingEvent(View loadingView) {
+        super.setLoadingEvent(loadingView);
+    }
 
     public void setRetryAndEmpty(View retryView) {
         retryView.setOnClickListener(new View.OnClickListener() {

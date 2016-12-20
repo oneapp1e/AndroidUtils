@@ -222,7 +222,7 @@ public class SystemUtils {
 
 
     /**
-     * 获取设备的ANDROID_ID。<br/>
+     * 获取设备的ANDROID_ID。
      * 在设备首次启动时，系统会随机生成一个64位的数字，并把这个数字以16进制字符串的形式保存下来，
      * 这个16进制的字符串就是ANDROID_ID，当设备被wipe后该值会被重置。
      *

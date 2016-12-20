@@ -1,4 +1,4 @@
-package com.mlr.test;
+package com.mlr.test.mvp.retrofit2;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitBuilder {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("http://c.m.163.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

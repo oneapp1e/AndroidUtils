@@ -13,12 +13,19 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.mlr.widget.LoadingAndRetryManager;
+import com.mlr.widget.OnLoadingAndRetryListener;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BaseActivity extends AppCompatActivity {
+/**
+ * 如果需要LoadingAndRetryManager 请调用initLoadingAndRetryManager方法
+ */
+public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetryListener {
 
     // ==========================================================================
     // Constants
@@ -30,6 +37,8 @@ public class BaseActivity extends AppCompatActivity {
     private LayoutInflater mInflater;
 
     protected BaseActivity mActivity;
+
+    protected LoadingAndRetryManager mLoadingAndRetryManager;
 
     private static List<BaseActivity> activityList = new LinkedList<BaseActivity>();
 
@@ -278,7 +287,9 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityList.add(this);
         initInflater();
+
     }
+
 
     @CallSuper
     @Override
@@ -318,6 +329,80 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     //**********************生命周期相关end*****************************
+
+
+    //**********************LoadingAndRetryManager相关start*****************************
+
+    /**
+     * 如果需要LoadingAndRetryManager 请调用initLoadingAndRetryManager方法
+     */
+    protected void initLoadingAndRetryManager() {
+        mLoadingAndRetryManager = LoadingAndRetryManager.generate(getActivity(), this);
+    }
+
+    protected void showProgress() {
+        if (mLoadingAndRetryManager == null) {
+            throw new RuntimeException("没有初始化initLoadingAndRetryManager 不能使用该方法");
+        }
+        mLoadingAndRetryManager.showLoading();
+    }
+
+    protected void hideProgress() {
+        if (mLoadingAndRetryManager == null) {
+            throw new RuntimeException("没有初始化initLoadingAndRetryManager 不能使用该方法");
+        }
+        mLoadingAndRetryManager.showContent();
+    }
+
+    protected void showToast(String msg) {
+        ToastUtils.showToastSafe(getActivity(), msg, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void setRetryEvent(View retryView) {
+
+    }
+
+    @Override
+    public void setEmptyEvent(View emptyView) {
+    }
+
+    @Override
+    public void setLoadingEvent(View loadingView) {
+
+    }
+
+    @Override
+    public int generateLoadingLayoutId() {
+        return R.layout.base_loading;
+    }
+
+    @Override
+    public int generateRetryLayoutId() {
+        return R.layout.offline_layout;
+    }
+
+    @Override
+    public int generateEmptyLayoutId() {
+        return R.layout.no_content_layout;
+    }
+
+    @Override
+    public View generateLoadingLayout() {
+        return null;
+    }
+
+    @Override
+    public View generateRetryLayout() {
+        return null;
+    }
+
+    @Override
+    public View generateEmptyLayout() {
+        return null;
+    }
+
+    //**********************LoadingAndRetryManager相关end*****************************
     // ==========================================================================
     // Inner/Nested Classes
     // ==========================================================================

@@ -6,14 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mlr.utils.R;
+
 /**
  * Created by zhy on 15/8/27.
  */
 public class LoadingAndRetryManager {
     public static final int NO_LAYOUT_ID = 0;
-    public static int BASE_LOADING_LAYOUT_ID = NO_LAYOUT_ID;
-    public static int BASE_RETRY_LAYOUT_ID = NO_LAYOUT_ID;
-    public static int BASE_EMPTY_LAYOUT_ID = NO_LAYOUT_ID;
+    public static int BASE_LOADING_LAYOUT_ID = R.layout.base_loading;
+    public static int BASE_RETRY_LAYOUT_ID = R.layout.offline_layout;
+    public static int BASE_EMPTY_LAYOUT_ID = R.layout.no_content_layout;
 
     public LoadingAndRetryLayout mLoadingAndRetryLayout;
 
@@ -23,6 +25,41 @@ public class LoadingAndRetryManager {
         public void setRetryEvent(View retryView) {
 
         }
+
+        @Override
+        public void setLoadingEvent(View loadingView) {
+
+        }
+
+        @Override
+        public void setEmptyEvent(View emptyView) {
+
+        }
+
+        public int generateLoadingLayoutId() {
+            return LoadingAndRetryManager.NO_LAYOUT_ID;
+        }
+
+        public int generateRetryLayoutId() {
+            return LoadingAndRetryManager.NO_LAYOUT_ID;
+        }
+
+        public int generateEmptyLayoutId() {
+            return LoadingAndRetryManager.NO_LAYOUT_ID;
+        }
+
+        public View generateLoadingLayout() {
+            return null;
+        }
+
+        public View generateRetryLayout() {
+            return null;
+        }
+
+        public View generateEmptyLayout() {
+            return null;
+        }
+
     };
 
 
@@ -80,7 +117,7 @@ public class LoadingAndRetryManager {
     }
 
     private void setupEmptyLayout(OnLoadingAndRetryListener listener, LoadingAndRetryLayout loadingAndRetryLayout) {
-        if (listener.isSetEmptyLayout()) {
+        if (isSetEmptyLayout(listener)) {
             int layoutId = listener.generateEmptyLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
                 loadingAndRetryLayout.setEmptyView(layoutId);
@@ -94,7 +131,7 @@ public class LoadingAndRetryManager {
     }
 
     private void setupLoadingLayout(OnLoadingAndRetryListener listener, LoadingAndRetryLayout loadingAndRetryLayout) {
-        if (listener.isSetLoadingLayout()) {
+        if (isSetLoadingLayout(listener)) {
             int layoutId = listener.generateLoadingLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
                 loadingAndRetryLayout.setLoadingView(layoutId);
@@ -108,18 +145,38 @@ public class LoadingAndRetryManager {
     }
 
     private void setupRetryLayout(OnLoadingAndRetryListener listener, LoadingAndRetryLayout loadingAndRetryLayout) {
-        if (listener.isSetRetryLayout()) {
+        if (isSetRetryLayout(listener)) {
             int layoutId = listener.generateRetryLayoutId();
             if (layoutId != NO_LAYOUT_ID) {
-                loadingAndRetryLayout.setLoadingView(layoutId);
+                loadingAndRetryLayout.setRetryView(layoutId);
             } else {
-                loadingAndRetryLayout.setLoadingView(listener.generateRetryLayout());
+                loadingAndRetryLayout.setRetryView(listener.generateRetryLayout());
             }
         } else {
             if (BASE_RETRY_LAYOUT_ID != NO_LAYOUT_ID)
                 loadingAndRetryLayout.setRetryView(BASE_RETRY_LAYOUT_ID);
         }
     }
+
+
+    public final boolean isSetLoadingLayout(OnLoadingAndRetryListener listener) {
+        if (listener.generateLoadingLayoutId() != LoadingAndRetryManager.NO_LAYOUT_ID || listener.generateLoadingLayout() != null)
+            return true;
+        return false;
+    }
+
+    public final boolean isSetRetryLayout(OnLoadingAndRetryListener listener) {
+        if (listener.generateRetryLayoutId() != LoadingAndRetryManager.NO_LAYOUT_ID || listener.generateRetryLayout() != null)
+            return true;
+        return false;
+    }
+
+    public final boolean isSetEmptyLayout(OnLoadingAndRetryListener listener) {
+        if (listener.generateEmptyLayoutId() != LoadingAndRetryManager.NO_LAYOUT_ID || listener.generateEmptyLayout() != null)
+            return true;
+        return false;
+    }
+
 
     public static LoadingAndRetryManager generate(Object activityOrFragment, OnLoadingAndRetryListener listener) {
         return new LoadingAndRetryManager(activityOrFragment, listener);

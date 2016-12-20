@@ -6,12 +6,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/7
- *     desc  : Shell相关工具类
- * </pre>
+ * Shell相关工具类
  */
 public class ShellUtils {
 
@@ -142,7 +137,7 @@ public class ShellUtils {
         /**
          * 结果码
          **/
-        public int    result;
+        public int result;
         /**
          * 成功信息
          **/

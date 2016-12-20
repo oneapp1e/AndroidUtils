@@ -2,53 +2,69 @@ package com.mlr.test;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
+import com.mlr.mrecyclerview.MRecyclerView;
+import com.mlr.test.mvp.View.NewsListView;
+import com.mlr.test.mvp.adapter.NewsListAdapter;
+import com.mlr.test.mvp.entity.NewsSummary;
+import com.mlr.test.mvp.presenter.NewsListPresenter;
+import com.mlr.test.mvp.presenter.impl.NewsListPresenterImpl;
 import com.mlr.utils.BaseActivity;
+import com.mlr.utils.LoadMoreListener;
+import com.mlr.utils.LogUtils;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by mulinrui on 12/6 0006.
  */
-public class Retrofit2Activity extends BaseActivity {
+public class Retrofit2Activity extends BaseActivity implements NewsListView {
 
+    private NewsListPresenter mNewsListPresenter;
+
+    NewsListAdapter mRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit2);
-        Button button = (Button) findViewById(R.id.button);
-        final TextView textView = (TextView) findViewById(R.id.textView);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        initLoadingAndRetryManager();
+
+        mNewsListPresenter = new NewsListPresenterImpl(this);
+
+
+        MRecyclerView mRecyclerView = (MRecyclerView) findViewById(R.id.recyclerView);
+
+        mRecyclerViewAdapter = new NewsListAdapter(getActivity(), null);
+        mRecyclerViewAdapter.setLoadMoreListener(new LoadMoreListener<NewsSummary>() {
+            @Override
+            public int onLoadMoreRequested(List<NewsSummary> out, int startPosition, int requestSize) {
+                return mNewsListPresenter.loadMore(out, startPosition, requestSize);
+            }
+        });
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
+        showProgress();
+        mNewsListPresenter.refreshData();
+    }
+
+
+    @Override
+    public void setNewList(List<NewsSummary> lists) {
+        hideProgress();
+        LogUtils.e("lists:"+lists.toString());
+        mRecyclerViewAdapter.setData(lists);
+    }
+
+
+    public void setRetryAndEmpty(View retryView) {
+        retryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GitHubService gitHubService = RetrofitBuilder.retrofit.create(GitHubService.class);
-                Call<List<Contributor>> call = gitHubService.repoContributors("oneapp1e", "AndroidUtils");
-                call.enqueue(new Callback<List<Contributor>>() {
-                    @Override
-                    public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
-                        StringBuilder ss = new StringBuilder();
-                        for (int i = 0; i < response.body().size(); i++) {
-                            Contributor contributor = response.body().get(i);
-                            ss.append(contributor.toString());
-                        }
-                        textView.setText(ss.toString());
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                        textView.setText("Something went wrong: " + t.getMessage());
-                    }
-                });
-
+                showProgress();;
+                mNewsListPresenter.refreshData();
             }
         });
     }
-
 }

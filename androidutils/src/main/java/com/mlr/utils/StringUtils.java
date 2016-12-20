@@ -11,11 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 
  * 字符串工具类
- * 
- * @author wangyl
- * @version
  */
 public class StringUtils {
 

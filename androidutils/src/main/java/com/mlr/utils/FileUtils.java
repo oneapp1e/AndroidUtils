@@ -578,7 +578,6 @@ public class FileUtils {
 
     /**
      * byteArr转hexString
-     * <p>例如：</p>
      * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
      *
      * @param bytes 字节数组

@@ -3,12 +3,7 @@ package com.mlr.utils;
 import java.io.UnsupportedEncodingException;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 16/11/16
- *     desc  : 拼音相关工具类
- * </pre>
+ * 拼音相关工具类
  */
 public class PinyinUtils {
 

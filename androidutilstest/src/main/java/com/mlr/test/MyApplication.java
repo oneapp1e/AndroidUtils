@@ -3,7 +3,6 @@ package com.mlr.test;
 import android.app.Application;
 import android.util.Log;
 
-import com.mlr.widget.LoadingAndRetryManager;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
 
@@ -46,9 +45,6 @@ public class MyApplication extends Application {
 
         QbSdk.initX5Environment(getApplicationContext(), cb);
 
-        LoadingAndRetryManager.BASE_RETRY_LAYOUT_ID = R.layout.offline_layout;
-        LoadingAndRetryManager.BASE_LOADING_LAYOUT_ID = R.layout.base_loading;
-        LoadingAndRetryManager.BASE_EMPTY_LAYOUT_ID = R.layout.no_content_layout;
 
     }
 }

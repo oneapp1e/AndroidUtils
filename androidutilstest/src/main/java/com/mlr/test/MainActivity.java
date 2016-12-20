@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AlarmActivity.class);
-                if (VersionUtils.hasJellyBean()) {
+                if (VersionUtils.hasLollipop()) {
                     ActivityOptionsCompat options = ActivityOptionsCompat
                             .makeSceneTransitionAnimation(mActivity, btn04, getString(R.string.extra));
                     startActivity(intent, options.toBundle());
