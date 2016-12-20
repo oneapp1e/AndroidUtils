@@ -5,9 +5,9 @@
 #### Maven
     <dependency>
       <groupId>com.mlr</groupId>
-      <artifactId>MRecyclerView</artifactId>
+      <artifactId>AndroidUtils</artifactId>
       <version>1.0.5</version>
       <type>pom</type>
     </dependency>
 #### Gradle
-    compile 'com.mlr:MRecyclerView:1.0.5'
+    compile 'com.mlr:AndroidUtils:1.0.5'
