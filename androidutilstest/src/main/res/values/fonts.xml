@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 项目常规字号大小 size_F1一般是标题使用（各个列表页的标题）-->
+    <dimen name="size_F1">13dp</dimen>
+    <!--内容字号：搜索结果的帖子内容-->
+    <dimen name="size_F2">14dp</dimen>
+    <!--不重要的展示信息字号：时间、评论数、点赞数等-->
+    <dimen name="size_F3">15dp</dimen>
+
+    <dimen name="big_large">24sp</dimen>
+    <dimen name="large">22sp</dimen>
+    <dimen name="big_medium">20sp</dimen>
+    <dimen name="medium">18sp</dimen>
+    <dimen name="big_small">16sp</dimen>
+    <dimen name="small">14sp</dimen>
+    <dimen name="micro">12sp</dimen>
+</resources>

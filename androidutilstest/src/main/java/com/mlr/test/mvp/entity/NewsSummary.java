@@ -17,6 +17,8 @@
 package com.mlr.test.mvp.entity;
 
 import com.mlr.model.ViewTypeInfo;
+import com.mlr.test.mvp.adapter.NewsListAdapter;
+import com.mlr.utils.StringUtils;
 
 import java.util.List;
 
@@ -112,6 +114,11 @@ public class NewsSummary extends ViewTypeInfo {
 
     public void setDigest(String digest) {
         this.digest = digest;
+        if (StringUtils.isEmpty(digest)) {
+            setViewType(NewsListAdapter.VIEW_TYPE_COMMON_ITEM);
+        } else {
+            setViewType(NewsListAdapter.VIEW_TYPE_PHONE_ITEM);
+        }
     }
 
     public boolean isHasIcon() {
