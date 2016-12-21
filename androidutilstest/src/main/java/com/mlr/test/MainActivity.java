@@ -39,15 +39,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        Button btn03 = (Button) findViewById(R.id.btn03);
-        btn03.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Retrofit2Activity.class);
-                startActivity(intent);
-            }
-        });
-
         final Button btn04 = (Button) findViewById(R.id.btn04);
         btn04.setOnClickListener(new View.OnClickListener() {
             @Override

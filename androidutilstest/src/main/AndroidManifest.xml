@@ -3,7 +3,6 @@
           package="com.mlr.test">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -34,7 +33,6 @@
 
         <activity android:name="com.mlr.test.LoadingActivity"/>
         <activity android:name="com.mlr.test.X5WebViewActivity"/>
-        <activity android:name="com.mlr.test.Retrofit2Activity"/>
         <activity android:name="com.mlr.test.AlarmActivity"/>
         <receiver
             android:name="com.mlr.test.utils.AlarmClockBroadcast"

@@ -1,6 +1,7 @@
 package com.mlr.test;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
@@ -11,9 +12,12 @@ import com.tencent.smtt.sdk.TbsListener;
  */
 public class MyApplication extends Application {
 
+    private static Context sAppContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sAppContext = this;
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
@@ -45,6 +49,9 @@ public class MyApplication extends Application {
 
         QbSdk.initX5Environment(getApplicationContext(), cb);
 
+    }
 
+    public static Context getAppContext() {
+        return sAppContext;
     }
 }
