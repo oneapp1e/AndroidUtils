@@ -16,7 +16,7 @@ def developerEmail='mulinrui@163.com'//你的邮箱
 
 
  group = "com.mlr"//发布aar前缀根节点
- version = "1.0.5"//发布aar的库版本
+ version = "1.0.6"//发布aar的库版本
 
 
 
@@ -92,7 +92,7 @@ bintray {
     configurations = ['archives']
     pkg {
         userOrg = projectUserOrg //这个是你创建时的organization,必须要有，不然没办法找到指定路径
-        repo = projectRepo //这个仓库必须在 ‘maven’这个organization下，必须在网页上创建成功，否则还是无法找到 repo
+        repo = projectRepo //这个仓库必须在 ‘projectUserOrg’这个organization下，必须在网页上创建成功，否则还是无法找到 repo
         name = projectName //发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl

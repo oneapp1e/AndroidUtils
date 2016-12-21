@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_page"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingBottom="50dp" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_page"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:paddingBottom="50dp">
 
     <ImageView
         android:id="@+id/img_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/bg_blankpage" />
+        android:src="@drawable/bg_blankpage"/>
 
     <TextView
         android:id="@+id/txt_no_content"
@@ -21,10 +21,10 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="53dp"
         android:layout_marginRight="53dp"
-        android:lineSpacingExtra="@dimen/lineSpacingExtra_12px"
         android:layout_marginTop="14dip"
+        android:lineSpacingExtra="@dimen/lineSpacingExtra_12px"
         android:text="@string/no_content"
         android:textColor="@color/uc_input"
-        android:textSize="@dimen/size_F2" />
+        android:textSize="@dimen/size_F2"/>
 
 </LinearLayout>
