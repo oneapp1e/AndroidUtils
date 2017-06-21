@@ -6,8 +6,8 @@
     <dependency>
       <groupId>com.mlr</groupId>
       <artifactId>AndroidUtils</artifactId>
-      <version>1.0.6</version>
+      <version>1.1.0</version>
       <type>pom</type>
     </dependency>
 #### Gradle
-    compile 'com.mlr:AndroidUtils:1.0.6'
+    compile 'com.mlr:AndroidUtils:1.1.0'

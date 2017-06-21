@@ -1,18 +1,12 @@
 package com.mlr.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.mlr.widget.LoadingAndRetryManager;
@@ -34,9 +28,6 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
     // ==========================================================================
     // Fields
     // ==========================================================================
-    private LayoutInflater mInflater;
-
-    protected BaseActivity mActivity;
 
     protected LoadingAndRetryManager mLoadingAndRetryManager;
 
@@ -50,17 +41,6 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
     // Getters
     // ==========================================================================
 
-    /**
-     * 内置handler
-     */
-    private Handler mDefaultHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            onHandleMessage(msg);
-        }
-
-    };
 
     // ==========================================================================
     // Setters
@@ -70,135 +50,6 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
     // Methods
     // ==========================================================================
 
-    /**
-     * 内置handler处理到某个消息时，该方法被回调。子类实现该方法以定义对消息的处理。
-     *
-     * @param msg 消息
-     */
-    protected void onHandleMessage(Message msg) {
-
-    }
-
-
-    /**
-     * 向内置handler的消息队列中增加一个任务。该任务会在将来的某一时刻在UI线程执行。
-     *
-     * @param r 任务
-     */
-    public boolean post(Runnable r) {
-        return mDefaultHandler.post(r);
-    }
-
-    /**
-     * 向内置handler的消息队列中增加一个任务。该任务会在指定延时后的某一时刻在UI线程执行。
-     *
-     * @param r           任务
-     * @param delayMillis 延时的毫秒数
-     */
-    public boolean postDelayed(Runnable r, long delayMillis) {
-        return mDefaultHandler.postDelayed(r, delayMillis);
-    }
-
-    private boolean initInflater() {
-        try {
-            mInflater = LayoutInflater.from(this);
-        } catch (Throwable tr) {
-            mInflater = null;
-        }
-        return null != mInflater;
-    }
-
-    /**
-     * 根据指定的layout索引，创建一个View
-     *
-     * @param resId 指定的layout索引
-     * @return 新的View
-     */
-    public View inflate(int resId) {
-        return inflate(resId, null, false);
-    }
-
-
-    //**********************资源相关start*****************************
-
-    /**
-     * 根据指定的layout索引，创建一个View
-     *
-     * @param resId        指定的layout索引
-     * @param parent       父view  没有可以传null
-     * @param attachToRoot 视图生成后是否直接加入到parent中
-     * @return 新的View
-     */
-    public View inflate(int resId, ViewGroup parent, boolean attachToRoot) {
-        if (null == mInflater && !initInflater()) {
-            return null;
-        }
-        return mInflater.inflate(resId, parent, attachToRoot);
-    }
-
-
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-
-    /**
-     * 根据资源上下文，将dip值转换为pixel值
-     *
-     * @param dipValue dip值
-     * @return pixel值
-     */
-    public int dip2px(float dipValue) {
-        return dip2px(this, dipValue);
-    }
-
-    /**
-     * 根据资源上下文，将pixel值转换为dip值
-     *
-     * @param pxValue pixel值
-     * @return dip值
-     */
-    public int px2dip(float pxValue) {
-        return px2dip(this, pxValue);
-    }
-
-    /**
-     * 获取资源图片
-     *
-     * @param resId 资源id
-     * @return 图片
-     */
-    public Drawable getResDrawable(int resId) {//5.0方法冲突
-        return getResources().getDrawable(resId);
-    }
-
-    /**
-     * 获取资源色值
-     *
-     * @param resId 资源id
-     * @return 色值
-     */
-    public int getResColor(int resId) {
-        return getResources().getColor(resId);
-    }
-
-    /**
-     * 获取资源像素值
-     *
-     * @param resId 资源id
-     * @return 像素值
-     */
-    public int getDimensionPixel(int resId) {
-        return getResources().getDimensionPixelSize(resId);
-    }
-
-    //**********************资源相关end*****************************
 
     //**********************事件相关start*****************************
 
@@ -262,9 +113,6 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
 
     //**********************生命周期相关start*****************************
 
-    protected BaseActivity getActivity() {
-        return mActivity;
-    }
 
     public List<BaseActivity> getActivityList() {
         return activityList;
@@ -283,10 +131,8 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
     @CallSuper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mActivity = this;
         super.onCreate(savedInstanceState);
         activityList.add(this);
-        initInflater();
 
     }
 
@@ -337,7 +183,7 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
      * 如果需要LoadingAndRetryManager 请调用initLoadingAndRetryManager方法
      */
     protected void initLoadingAndRetryManager() {
-        mLoadingAndRetryManager = LoadingAndRetryManager.generate(getActivity(), this);
+        mLoadingAndRetryManager = LoadingAndRetryManager.generate(this, this);
     }
 
     protected void showProgress() {
@@ -355,7 +201,7 @@ public class BaseActivity extends AppCompatActivity implements OnLoadingAndRetry
     }
 
     protected void showToast(String msg) {
-        ToastUtils.showToastSafe(getActivity(), msg, Toast.LENGTH_SHORT);
+        ToastUtils.showToastSafe(this, msg, Toast.LENGTH_SHORT);
     }
 
     @Override

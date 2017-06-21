@@ -16,7 +16,7 @@ def developerEmail='mulinrui@163.com'//你的邮箱
 
 
  group = "com.mlr"//发布aar前缀根节点
- version = "1.0.6"//发布aar的库版本
+ version = "1.1.0"//发布aar的库版本
 
 
 

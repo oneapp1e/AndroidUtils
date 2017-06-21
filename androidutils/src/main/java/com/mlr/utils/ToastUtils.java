@@ -1,6 +1,5 @@
 package com.mlr.utils;
 
-import android.os.Looper;
 import android.widget.Toast;
 
 /**
@@ -20,6 +19,7 @@ public class ToastUtils {
     public static void init(boolean isJumpWhenMore) {
         ToastUtils.isJumpWhenMore = isJumpWhenMore;
     }
+
     /**
      * 安全地显示短时吐司
      *
@@ -27,17 +27,13 @@ public class ToastUtils {
      * @param text     文本
      */
     public static void showToastSafe(final BaseActivity activity, final CharSequence text, final int duration) {
-        if (Looper.getMainLooper() == Looper.myLooper()) {
-            showToast(activity, text, duration);
-        } else {
-            activity.post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast(activity, text, duration);
-                }
-            });
-        }
 
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showToast(activity, text, duration);
+            }
+        });
     }
 
     /**
